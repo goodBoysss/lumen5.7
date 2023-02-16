@@ -108,6 +108,8 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 //注册RabbitMQ服务
 $app->register(\VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class);
+//jwt-auth
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 //注册laravel-s
 $app->register(Hhxsv5\LaravelS\Illuminate\LaravelSServiceProvider::class);
 
