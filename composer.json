@@ -20,6 +20,7 @@
         "predis/predis": "*",
         "rongcloud/php-sdk": "3.0.12",
         "sentry/sentry-laravel": "^1.8",
+        "tianmiao/cloud": "^1.2",
         "tianmiao/encrypt": "^1.2",
         "tianmiao/excel": "^2.1",
         "tymon/jwt-auth": "^1.0",

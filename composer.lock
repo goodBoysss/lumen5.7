@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cdf85cd70cb05a50ab16d14f7253a793",
+    "content-hash": "26fe363ea4e7a16b00ad71c79eac174a",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -8474,6 +8474,40 @@
                 }
             ],
             "time": "2021-11-12T10:50:54+00:00"
+        },
+        {
+            "name": "tianmiao/cloud",
+            "version": "v1.2.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/goodBoysss/tianmiao-cloud.git",
+                "reference": "84a28344e60d8deea7193c042c23b31174b369bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/goodBoysss/tianmiao-cloud/zipball/84a28344e60d8deea7193c042c23b31174b369bc",
+                "reference": "84a28344e60d8deea7193c042c23b31174b369bc",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tianmiao\\Cloud\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "zhanglx",
+                    "email": "zhanglx92@163.com"
+                }
+            ],
+            "description": "天渺公共服务",
+            "support": {
+                "issues": "https://github.com/goodBoysss/tianmiao-cloud/issues",
+                "source": "https://github.com/goodBoysss/tianmiao-cloud/tree/v1.2.12"
+            },
+            "time": "2023-02-16T10:41:13+00:00"
         },
         {
             "name": "tianmiao/encrypt",

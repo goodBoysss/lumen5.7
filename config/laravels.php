@@ -249,7 +249,12 @@ return [
     |
     */
 
-    'cleaners' => [],
+    'cleaners' => [
+        //全局数据销毁
+        \Tianmiao\Cloud\Libs\LaravelS\Cleaners\ContextCleaner::class,
+        //logic销毁
+        \Tianmiao\Cloud\Libs\LaravelS\Cleaners\LogicCleaner::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
