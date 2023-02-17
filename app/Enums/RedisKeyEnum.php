@@ -4,5 +4,5 @@ namespace App\Enums;
 
 class RedisKeyEnum
 {
-    const APP = "shorturl:app"; //应用列表
+    const APP = "{project_name}:app"; //应用列表
 }

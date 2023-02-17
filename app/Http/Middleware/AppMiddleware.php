@@ -8,19 +8,17 @@
  * ==============================================
  * @desc : 应用中间件
  * @author: zhanglinxiao<zhanglinxiao@tianmtech.cn>
- * @date: 2021/11/03
+ * @date: 2023/02/17
  * @version: v1.0.0
- * @since: 2021/11/03 09:11
+ * @since: 2023/02/17 09:11
  */
 
 
 namespace App\Http\Middleware;
 
-use App\Repositories\AppRepository;
-use App\Response\Response;
+use App\Enums\ContextEnum;
 use App\Services\Tools\AppService;
 use Closure;
-use Carbon\Carbon;
 use App\Exceptions\BasicException;
 use Illuminate\Http\Request;
 
@@ -28,24 +26,28 @@ class AppMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-
-        $appId = $request->header('appid', '');
-        if (empty($appId)) {
+        $outAppId = $request->header('appid', '');
+        if (empty($outAppId)) {
             throw new BasicException(10001, '应用唯一标识不能为空');
         }
 
-        //获取应用信息
-        /**@var AppRepository $appRepo */
-        $appRepo = app("repo_app");
-        $appInfo = $appRepo->first(array(
-            'app_id' => $appId
-        ), array('id', 'app_secret'));
-        if (empty($appInfo)) {
-            throw new BasicException(10001, '应用不存在');
+        if ($outAppId == env("GENERAL_APP_ID")) {
+            app("context")->set(ContextEnum::APP_ID, 0);
+            $appSecret = env("GENERAL_APP_SECRET");
+        } else {
+            //获取应用信息
+            $appInfo = app("logic_cache_app")->getAppByOutAppId($outAppId, array('id', 'app_secret'));
+            if (empty($appInfo)) {
+                throw new BasicException(10001, '应用不存在');
+            }
+
+            app("context")->set(ContextEnum::APP_ID, $appInfo['id']);
+            $appSecret = $appInfo['app_secret'];
         }
-        define("APP_ID", $appInfo['id']);
-        //TODO::
-//        return $next($request);
+
+        if (env("APP_ENV") != "production") {
+            return $next($request);
+        }
         //签名
         $sign = $request->header('sign', '');
         if (empty($sign)) {
@@ -62,10 +64,10 @@ class AppMiddleware
         $params = $request->all();
 
         $params['timestamp'] = $timestamp;
-        $params['appid'] = $appId;
+        $params['appid'] = $outAppId;
 
         //签名准确性校验
-        $signGenerate = AppService::generateSign($params, $appInfo->app_secret);
+        $signGenerate = AppService::generateSign($params, $appSecret);
 
         if ($sign != $signGenerate) {
             throw new BasicException(10001, '签名不合法');
